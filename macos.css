@@ -326,9 +326,13 @@ button { font-family: inherit; cursor: pointer; }
   transform-origin: bottom center;
   position: relative;
 }
-.dock-app:hover { transform: scale(1.35) translateY(-6px); }
-.dock-app:hover + .dock-app,
-.dock-app:has(+ .dock-app:hover) { transform: scale(1.15) translateY(-2px); }
+/* magnification handled by JS (mouse-distance fisheye); touch/no-JS fallback: */
+@media (hover: none) { .dock-app:active { transform: scale(1.2); } }
+/* running-app indicator dot */
+.dock-app.running::before {
+  content: ""; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%);
+  width: 4px; height: 4px; border-radius: 50%; background: var(--text); opacity: 0.55;
+}
 .dock-app.grad-blue { background: linear-gradient(145deg, #4facfe, #0a84ff); }
 .dock-app.grad-purple { background: linear-gradient(145deg, #a56bff, #6a3cff); }
 .dock-app.grad-green { background: linear-gradient(145deg, #34e27a, #12b866); }

@@ -247,6 +247,7 @@
         n.classList.toggle('active', on);
         if (on) n.setAttribute('aria-current', 'page'); else n.removeAttribute('aria-current');
       });
+      document.querySelectorAll('.dock-app[data-go]').forEach(a => a.classList.toggle('running', a.dataset.go === id));
       const t = document.getElementById('winTitle'); if (titles[id]) t.textContent = titles[id];
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -280,6 +281,31 @@
         const old = cb.textContent; cb.textContent = 'Copied ✓'; cb.classList.add('done');
         setTimeout(() => { cb.textContent = old; cb.classList.remove('done'); }, 1500);
       } catch(e) { window.location.href = 'mailto:jenvermikeuddon@gmail.com'; }
+    });
+
+    // ---- dock magnification (mouse-distance fisheye) ----
+    (function () {
+      const dock = document.querySelector('.dock');
+      if (!dock || window.matchMedia('(hover: none)').matches) return;
+      const apps = Array.from(dock.querySelectorAll('.dock-app'));
+      const MAX = 0.5, RANGE = 84;
+      dock.addEventListener('mousemove', (e) => {
+        apps.forEach(app => {
+          const r = app.getBoundingClientRect();
+          const d = Math.abs(e.clientX - (r.left + r.width / 2));
+          const s = d < RANGE ? 1 + MAX * Math.cos((d / RANGE) * (Math.PI / 2)) : 1;
+          app.style.transform = `scale(${s}) translateY(${-(s - 1) * 20}px)`;
+        });
+      });
+      dock.addEventListener('mouseleave', () => apps.forEach(a => (a.style.transform = '')));
+    })();
+
+    // ---- keyboard shortcuts: 1–5 switch sections ----
+    document.addEventListener('keydown', (e) => {
+      const tag = e.target && e.target.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+      const map = { '1': 'about', '2': 'projects', '3': 'skills', '4': 'experience', '5': 'contact' };
+      if (map[e.key]) { show(map[e.key]); }
     });
   </script>
 </body>
