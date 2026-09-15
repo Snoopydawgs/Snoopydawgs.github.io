@@ -248,7 +248,7 @@
         if (on) n.setAttribute('aria-current', 'page'); else n.removeAttribute('aria-current');
       });
       const t = document.getElementById('winTitle'); if (titles[id]) t.textContent = titles[id];
-      document.querySelector('.content').scrollTop = 0;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     document.querySelectorAll('[data-go]').forEach(el => {
       el.addEventListener('click', (e) => { e.preventDefault(); show(el.dataset.go); });
