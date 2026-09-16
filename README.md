@@ -2,7 +2,7 @@
 
 A macOS desktop-style personal portfolio built from scratch with vanilla HTML, CSS, and JavaScript — no frameworks, no build step, no external dependencies. It works offline and loads instantly.
 
-**Live site:** _add your GitHub Pages / Netlify URL here after deploying_
+**Live site:** https://snoopydawgs.github.io/
 
 ## Features
 - 🖥️ macOS desktop UI — menu bar with live clock, window with traffic lights, and a dock
