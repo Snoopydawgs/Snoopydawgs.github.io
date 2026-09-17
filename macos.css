@@ -386,15 +386,15 @@ button { font-family: inherit; cursor: pointer; }
   .window { max-height: none; border-radius: 14px; }
   .wbody { flex-direction: column; }
   .sidebar {
-    width: 100%; flex-direction: row; overflow-x: auto; gap: 4px;
-    border-right: none; border-bottom: 0.5px solid var(--border-soft); padding: 8px;
+    width: 100%; flex-flow: row wrap; justify-content: center; gap: 5px;
+    border-right: none; border-bottom: 0.5px solid var(--border-soft); padding: 9px;
   }
-  .side-label, .side-foot { display: none; }
+  .side-label { display: none; }
+  .side-foot { display: contents; }
+  .theme-toggle { width: auto; padding: 7px 12px; }
   .nav { width: auto; white-space: nowrap; padding: 7px 12px; }
   .tb-right { display: none; }
   .titlebar { grid-template-columns: 1fr auto 1fr; }
-  .sidebar { scrollbar-width: none; }
-  .sidebar::-webkit-scrollbar { display: none; }
   .content { padding: 20px; }
   .proj-grid, .skill-cats, .svc-list { grid-template-columns: 1fr; }
   .about-top { gap: 18px; }
