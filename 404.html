@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Page Not Found · Jenver</title>
+  <meta name="robots" content="noindex" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    }
+    html, body { height: 100%; }
+    body {
+      font-family: var(--font); color: #f5f5f7; min-height: 100vh;
+      display: grid; place-items: center; padding: 20px; overflow: hidden;
+      background: linear-gradient(160deg, #0b0a1f 0%, #16103a 42%, #241146 72%, #360f33 100%);
+    }
+    .aurora { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+    .aurora span { position: absolute; border-radius: 50%; filter: blur(72px); opacity: 0.55; mix-blend-mode: screen; }
+    .o1 { width: 46vmax; height: 46vmax; left: -12vmax; top: -14vmax; background: #7b5cff; }
+    .o2 { width: 38vmax; height: 38vmax; right: -8vmax; top: -8vmax; background: #ff5cae; }
+    .o3 { width: 40vmax; height: 40vmax; left: 20vmax; bottom: -18vmax; background: #00d0ff; }
+    .win {
+      position: relative; z-index: 1; width: min(460px, 100%);
+      background: rgba(38,38,42,0.72); backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      border: 0.5px solid rgba(255,255,255,0.12); border-radius: 14px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.4); overflow: hidden;
+    }
+    .bar { height: 38px; display: flex; align-items: center; gap: 8px; padding: 0 14px;
+      background: rgba(48,48,54,0.65); border-bottom: 0.5px solid rgba(255,255,255,0.07); }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .r { background: #ff5f57; } .y { background: #febc2e; } .g { background: #28c840; }
+    .bar span { margin-left: auto; margin-right: auto; font-size: 13px; font-weight: 600; color: #a1a1a6; }
+    .body { padding: 48px 34px 40px; text-align: center; }
+    .code { font-size: 72px; font-weight: 800; letter-spacing: -2px;
+      background: linear-gradient(135deg, #7b5cff, #ff5cae, #ffb14e);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    h1 { font-size: 20px; font-weight: 700; margin-top: 8px; }
+    p { color: #a1a1a6; font-size: 14px; margin: 10px 0 26px; }
+    a.btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px; border-radius: 10px;
+      background: linear-gradient(135deg, #0a84ff, #7b5cff); color: #fff; text-decoration: none;
+      font-size: 14px; font-weight: 600; box-shadow: 0 6px 18px rgba(10,132,255,0.35); transition: filter .2s; }
+    a.btn:hover { filter: brightness(1.08); }
+  </style>
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"><span class="o1"></span><span class="o2"></span><span class="o3"></span></div>
+  <div class="win">
+    <div class="bar"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i><span>Finder</span></div>
+    <div class="body">
+      <div class="code">404</div>
+      <h1>This page couldn't be found</h1>
+      <p>The file you're looking for may have been moved or doesn't exist.</p>
+      <a class="btn" href="/">← Back to Jenver's portfolio</a>
+    </div>
+  </div>
+</body>
+</html>
