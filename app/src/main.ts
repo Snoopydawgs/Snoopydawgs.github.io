@@ -279,7 +279,7 @@ if (eyes.length && !window.matchMedia('(hover: none)').matches) {
       const cx = r.left + r.width / 2;
       const cy = r.top + r.height / 2;
       const angle = Math.atan2(e.clientY - cy, e.clientX - cx);
-      const reach = r.width * 0.24;
+      const reach = r.width * 0.18;
       pupil.style.transform = `translate(${Math.cos(angle) * reach}px, ${Math.sin(angle) * reach}px)`;
     });
   });

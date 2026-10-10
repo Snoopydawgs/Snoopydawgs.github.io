@@ -150,20 +150,20 @@
   }
   .portrait-img { @apply block w-full h-full; object-fit: cover; }
 
-  /* eyes that follow the cursor (watchful look) */
+  /* the subject's own eyes track the cursor: the iris is blanked in the
+     photo and a dark pupil (no white circle) moves within the eye socket */
   .eye {
-    @apply absolute grid place-items-center overflow-hidden;
-    width: 8%; aspect-ratio: 1; z-index: 2;
-    background: #f2f2f2;
-    border: 1px solid rgba(20, 20, 20, .3);
-    border-radius: 50%;
+    @apply absolute grid place-items-center;
+    width: 5.6%; aspect-ratio: 1; z-index: 2;
     transform: translate(-50%, -50%);
+    pointer-events: none;
   }
-  .eye-l { left: 40%; top: 37.5%; }
-  .eye-r { left: 61%; top: 37.5%; }
+  .eye-l { left: 41.5%; top: 33%; }
+  .eye-r { left: 59%; top: 33%; }
   .pupil {
-    width: 46%; aspect-ratio: 1; border-radius: 50%; background: #141414;
-    transition: transform .07s linear;
+    width: 62%; aspect-ratio: 1; border-radius: 50%;
+    background: #141414;
+    transition: transform .08s linear;
   }
   .hero-name {
     @apply font-bold text-[40px] tracking-[-0.04em] mb-[22px];
