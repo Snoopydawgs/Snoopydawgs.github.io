@@ -268,6 +268,117 @@ if (!window.matchMedia('(hover: none)').matches) {
   }
 }
 
+/* ---------- interactive dithered portrait ----------
+   The portrait is drawn as a live halftone on a canvas; dots near the
+   pointer bloom and drift, so the dither reacts as the cursor moves. */
+(function initDither(): void {
+  const canvas = document.querySelector<HTMLCanvasElement>('.portrait-canvas');
+  if (!canvas) return;
+  if (window.matchMedia('(hover: none)').matches) {
+    canvas.remove(); // mobile/touch: keep the static image fallback
+    return;
+  }
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  let gray: Uint8ClampedArray | null = null;
+  let GW = 0;
+  let GH = 0;
+  const mouse = { x: -9999, y: -9999, active: false };
+  let raf = 0;
+
+  const img = new Image();
+  img.src = '/portrait-gray.png';
+  img.onload = () => {
+    const pw = 220;
+    const ph = Math.round(pw * (img.height / img.width));
+    const off = document.createElement('canvas');
+    off.width = pw;
+    off.height = ph;
+    const og = off.getContext('2d');
+    if (!og) return;
+    og.drawImage(img, 0, 0, pw, ph);
+    gray = og.getImageData(0, 0, pw, ph).data;
+    GW = pw;
+    GH = ph;
+    sizeCanvas();
+    draw();
+  };
+
+  function sizeCanvas(): void {
+    const r = canvas!.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas!.width = Math.max(1, Math.round(r.width * dpr));
+    canvas!.height = Math.max(1, Math.round(r.height * dpr));
+  }
+
+  function sample(fx: number, fy: number): number {
+    if (!gray) return 255;
+    const gx = Math.min(GW - 1, Math.max(0, Math.round(fx * (GW - 1))));
+    const gy = Math.min(GH - 1, Math.max(0, Math.round(fy * (GH - 1))));
+    return gray[(gy * GW + gx) * 4];
+  }
+
+  function draw(): void {
+    if (!gray || !ctx) return;
+    const W = canvas!.width;
+    const H = canvas!.height;
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#141414';
+
+    const cols = 118;
+    const cell = W / cols;
+    const rows = Math.round(H / cell);
+    const R = W * 0.3; // pointer influence radius
+    for (let j = 0; j < rows; j++) {
+      for (let i = 0; i < cols; i++) {
+        let px = (i + 0.5) * cell;
+        let py = (j + 0.5) * cell;
+        const b = sample(i / cols, j / rows);
+        let rad = ((255 - b) / 255) * cell * 0.72;
+        if (mouse.active) {
+          const dx = px - mouse.x;
+          const dy = py - mouse.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < R) {
+            const f = 1 - dist / R;
+            const infl = f * f;
+            rad *= 1 + infl * 1.1; // bloom near the pointer
+            const push = infl * cell * 1.4; // gentle liquid drift
+            const nx = dx / (dist || 1);
+            const ny = dy / (dist || 1);
+            px += nx * push;
+            py += ny * push;
+          }
+        }
+        if (rad > 0.35) {
+          ctx.beginPath();
+          ctx.arc(px, py, rad, 0, 6.2832);
+          ctx.fill();
+        }
+      }
+    }
+  }
+
+  function schedule(): void {
+    if (!raf) raf = requestAnimationFrame(() => { raf = 0; draw(); });
+  }
+
+  window.addEventListener('mousemove', (e: MouseEvent) => {
+    const r = canvas!.getBoundingClientRect();
+    const dpr = canvas!.width / r.width;
+    mouse.x = (e.clientX - r.left) * dpr;
+    mouse.y = (e.clientY - r.top) * dpr;
+    mouse.active = true;
+    schedule();
+  });
+  window.addEventListener('mouseout', (e: MouseEvent) => {
+    if (!e.relatedTarget) { mouse.active = false; schedule(); }
+  });
+  window.addEventListener('resize', () => { sizeCanvas(); draw(); });
+})();
+
 /* ---------- command palette ---------- */
 interface PaletteItem {
   label: string;
