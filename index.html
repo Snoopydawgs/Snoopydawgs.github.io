@@ -66,6 +66,10 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 4-8 4-8-4 8-4z"/><path d="M4 12l8 4 8-4M4 17l8 4 8-4"/></svg>
           <span>Skills</span>
         </button>
+        <button class="nav" data-go="blog" data-tip-title="Blog" data-tip="Short notes on what I'm building and learning.">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Blog</span>
+        </button>
         <button class="nav" data-go="recommendations" data-tip-title="Recommendations" data-tip="What teammates, clients, and mentors say about working with me.">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           <span>Recommendations</span>
@@ -264,6 +268,49 @@
         </div>
       </section>
 
+      <!-- BLOG -->
+      <section class="pane" id="pane-blog" hidden>
+        <header class="pane-head">
+          <h2 class="pane-title">Blog</h2>
+          <p class="pane-sub">Short notes on what I'm building and learning. Click a post to read.</p>
+        </header>
+        <div class="post-list">
+          <details class="post">
+            <summary>
+              <span class="post-top"><span class="post-title">From paper forms to a system that just works</span><span class="post-date">2026</span></span>
+              <span class="post-excerpt">What I learned building a health records system for a city health office.</span>
+            </summary>
+            <div class="post-body">
+              <p>For our capstone, my team built a web-based records system for Dasmari&ntilde;as City Health Office 2. Before it, everything ran on paper &mdash; patient records, appointments, and reports were all written by hand and kept in folders.</p>
+              <p>My job was the back-end and the database. The hardest part wasn't the code &mdash; it was understanding how the staff actually worked, then shaping the system around that instead of forcing them to change. We added role-based accounts so each person sees only what they need, and turned reports that used to take hours into a few clicks.</p>
+              <p>The biggest lesson: a system is only good if the people using it trust it. We spent real time on small things &mdash; clear labels, fast search, no surprises &mdash; because that's what makes someone choose the app over the old notebook.</p>
+            </div>
+          </details>
+          <details class="post">
+            <summary>
+              <span class="post-top"><span class="post-title">Building Norte Cafe's online ordering flow</span><span class="post-date">2025</span></span>
+              <span class="post-excerpt">Menu, transactions, riders, and email alerts on a custom PHP MVC setup.</span>
+            </summary>
+            <div class="post-body">
+              <p>Norte Cafe is a web-based ordering and delivery system my team built for a caf&eacute;. A customer browses the menu, places an order, and that order moves through the kitchen and out to a rider &mdash; with the staff watching the whole thing from a dashboard.</p>
+              <p>We built it on a custom PHP MVC structure instead of a framework, mostly so we understood every moving part. The trickiest piece was keeping the order's state honest across everyone &mdash; customer, staff, and rider &mdash; so nobody sees stale information. Email alerts tied it together so no order gets missed.</p>
+              <p>If I did it again, I'd plan the database first and the screens second. Getting the data model right early would have saved us a lot of rework later.</p>
+            </div>
+          </details>
+          <details class="post">
+            <summary>
+              <span class="post-top"><span class="post-title">Learning by shipping real projects</span><span class="post-date">2026</span></span>
+              <span class="post-excerpt">Why I'd rather build something small that works than wait until I feel ready.</span>
+            </summary>
+            <div class="post-body">
+              <p>I'm a BSIS student, but most of what I actually know came from building real systems &mdash; a caf&eacute; ordering app, an internship tracker, a health records system &mdash; not just from class.</p>
+              <p>Shipping teaches you things theory can't: how to talk to the person who'll use the app, how to cut scope when a deadline is close, how to fix a bug late at night without breaking three other things. Every project left me a little faster and a little calmer.</p>
+              <p>I'm still early, and that's fine. I'd rather build something small that genuinely helps someone than wait until I feel &ldquo;ready.&rdquo; Ready comes from doing.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
       <!-- RECOMMENDATIONS -->
       <section class="pane" id="pane-recommendations" hidden>
         <header class="pane-head">
@@ -344,6 +391,7 @@
       projects: 'Projects — Jenver Mike Uddon',
       experience: 'Experience — Jenver Mike Uddon',
       skills: 'Skills — Jenver Mike Uddon',
+      blog: 'Blog — Jenver Mike Uddon',
       recommendations: 'Recommendations — Jenver Mike Uddon',
       contact: 'Contact — Jenver Mike Uddon'
     };
@@ -370,7 +418,7 @@
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'e') { e.preventDefault(); copyEmail(); return; }
       const tag = e.target && e.target.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA') return;
-      const map = { '1': 'about', '2': 'projects', '3': 'experience', '4': 'skills', '5': 'recommendations', '6': 'contact' };
+      const map = { '1': 'about', '2': 'projects', '3': 'experience', '4': 'skills', '5': 'blog', '6': 'recommendations', '7': 'contact' };
       if (map[e.key]) show(map[e.key]);
     });
 
@@ -512,6 +560,7 @@
         { label: 'Projects', hint: 'section', act: () => show('projects') },
         { label: 'Experience', hint: 'section', act: () => show('experience') },
         { label: 'Skills', hint: 'section', act: () => show('skills') },
+        { label: 'Blog', hint: 'section', act: () => show('blog') },
         { label: 'Recommendations', hint: 'section', act: () => show('recommendations') },
         { label: 'Contact', hint: 'section', act: () => show('contact') },
         { label: 'Copy email', hint: 'action', act: () => copyEmail() },

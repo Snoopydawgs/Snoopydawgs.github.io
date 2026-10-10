@@ -438,6 +438,24 @@ kbd {
 .cform-note { font-size: 12px; color: var(--muted); }
 .cform-or { font-size: 11px; color: var(--faint); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px; }
 
+/* ---------- blog ---------- */
+.post-list { display: flex; flex-direction: column; border-top: 1px solid var(--border); }
+.post { border-bottom: 1px solid var(--border); }
+.post > summary {
+  display: block; cursor: pointer; list-style: none;
+  padding: 20px 2px; transition: opacity .15s ease;
+}
+.post > summary::-webkit-details-marker { display: none; }
+.post > summary:hover { opacity: .72; }
+.post-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.post-title { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; }
+.post-date { font-size: 12px; color: var(--faint); flex: 0 0 auto; }
+.post-excerpt { display: block; color: var(--muted); font-size: 13.5px; margin-top: 6px; max-width: 62ch; }
+.post[open] > summary .post-title { text-decoration: underline; text-underline-offset: 3px; }
+.post-body { padding: 2px 2px 24px; animation: fade .25s ease; }
+.post-body p { color: var(--muted); font-size: 14px; line-height: 1.7; margin-bottom: 14px; max-width: 64ch; }
+.post-body p:last-child { margin-bottom: 0; }
+
 /* ---------- recommendations ---------- */
 .rec-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
 .rec {
