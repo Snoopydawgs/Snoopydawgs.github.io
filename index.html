@@ -347,6 +347,28 @@
       if (y) y.addEventListener('click', () => flash('minimizing'));
       if (r) r.addEventListener('click', () => flash('shaking'));
     })();
+
+    // ---- make project cards clickable -> GitHub ----
+    (function () {
+      const repos = {
+        'Health Management System': 'https://github.com/Snoopydawgs',
+        'Norte Cafe — Online Ordering System': 'https://github.com/Snoopydawgs/NorteCafe',
+        'School Internship Management System': 'https://github.com/Snoopydawgs',
+        'Rise and Shine': 'https://github.com/Snoopydawgs',
+        'Personal Portfolio': 'https://github.com/Snoopydawgs/Snoopydawgs.github.io'
+      };
+      document.querySelectorAll('.proj').forEach(card => {
+        const name = (card.querySelector('.proj-name') || {}).textContent;
+        const url = name && repos[name.trim()];
+        if (!url) return;
+        card.setAttribute('role', 'link');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', name.trim() + ' — view on GitHub');
+        const open = () => window.open(url, '_blank', 'noopener');
+        card.addEventListener('click', (e) => { if (!e.target.closest('a')) open(); });
+        card.addEventListener('keydown', (e) => { if (e.key === 'Enter') open(); });
+      });
+    })();
   </script>
 </body>
 </html>
