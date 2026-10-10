@@ -268,26 +268,6 @@ if (!window.matchMedia('(hover: none)').matches) {
   }
 }
 
-/* ---------- the subject's own eyes follow the cursor ----------
-   Each .eye is a clipped copy of the portrait; shifting its background
-   nudges just the eye's pixels toward the pointer (no overlay circle). */
-const eyes = $$<HTMLElement>('.eye');
-if (eyes.length && !window.matchMedia('(hover: none)').matches) {
-  window.addEventListener('mousemove', (e: MouseEvent) => {
-    eyes.forEach((eye) => {
-      const r = eye.getBoundingClientRect();
-      if (!r.width) return;
-      const cx = r.left + r.width * parseFloat(eye.dataset.cx ?? '0.5');
-      const cy = r.top + r.height * parseFloat(eye.dataset.cy ?? '0.5');
-      const angle = Math.atan2(e.clientY - cy, e.clientX - cx);
-      const reach = r.width * 0.021;
-      const dx = Math.cos(angle) * reach;
-      const dy = Math.sin(angle) * reach;
-      eye.style.backgroundPosition = `calc(50% + ${dx}px) calc(50% + ${dy}px)`;
-    });
-  });
-}
-
 /* ---------- command palette ---------- */
 interface PaletteItem {
   label: string;
