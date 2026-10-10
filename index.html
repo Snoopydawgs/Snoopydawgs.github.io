@@ -72,11 +72,27 @@
         </button>
       </nav>
 
+      <div class="side-sep"></div>
+
+      <nav class="side-links" aria-label="Links">
+        <a class="slink" href="resume.pdf" download>Résumé <span class="arr">&#8595;</span></a>
+        <a class="slink" href="https://github.com/Snoopydawgs" target="_blank" rel="noopener">GitHub <span class="arr">&#8599;</span></a>
+        <a class="slink" href="https://www.linkedin.com/in/jenver-uddon-b26123420" target="_blank" rel="noopener">LinkedIn <span class="arr">&#8599;</span></a>
+        <a class="slink" href="https://www.facebook.com/khassellll" target="_blank" rel="noopener">Facebook <span class="arr">&#8599;</span></a>
+      </nav>
+
       <div class="side-spacer"></div>
 
-      <div class="side-hint">
-        <span>navigate</span>
-        <span class="keys"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd></span>
+      <div class="side-cmds">
+        <button class="cmd" id="openPalette">Quick menu <span class="cmd-keys"><kbd>&#8984;</kbd><kbd>K</kbd></span></button>
+        <button class="cmd" id="copyEmailK">Copy email <span class="cmd-keys"><kbd>&#8984;</kbd><kbd>E</kbd></span></button>
+      </div>
+
+      <div class="presence">
+        <span class="pres-ava" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3.1-5.5 7-5.5s7 1.9 7 5.5"/></svg>
+        </span>
+        <span><strong id="viewers">1</strong> person viewing now</span>
       </div>
 
       <div class="side-foot">
@@ -89,6 +105,11 @@
           </button>
           <button class="theme-btn" data-theme-set="dark" aria-label="Dark appearance" title="Dark">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          </button>
+          <span class="tr-sep"></span>
+          <button class="theme-btn mute-btn" id="muteBtn" aria-label="Toggle sound" title="Sound">
+            <svg class="ic-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 9l5 6M21 9l-5 6" stroke-linecap="round"/></svg>
+            <svg class="ic-sound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" hidden><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" stroke-linecap="round"/></svg>
           </button>
         </div>
         <p class="reach">For work, collabs &amp; everything else, reach me at</p>
@@ -114,6 +135,25 @@
               <a href="https://www.linkedin.com/in/jenver-uddon-b26123420" target="_blank" rel="noopener">linkedin <span class="arr">&#8599;</span></a>
               <a href="https://www.facebook.com/khassellll" target="_blank" rel="noopener">facebook <span class="arr">&#8599;</span></a>
             </div>
+          </div>
+        </div>
+
+        <div class="badges">
+          <div class="badge">
+            <span class="badge-mark">KLD</span>
+            <span class="badge-text"><b>BSIS Student</b><i>Expected 2027</i></span>
+          </div>
+          <div class="badge">
+            <span class="badge-mark">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21V7l6-3 6 3v14M9 21v-4h2v4M4 11h12M4 15h12" stroke-linecap="round"/></svg>
+            </span>
+            <span class="badge-text"><b>Capstone Programmer</b><i>City Health Office 2 &middot; 2026</i></span>
+          </div>
+          <div class="badge">
+            <span class="badge-mark">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-6-5.2-6-10a6 6 0 0 1 12 0c0 4.8-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>
+            </span>
+            <span class="badge-text"><b>Cavite, Philippines</b><i>Based in &middot; Remote</i></span>
           </div>
         </div>
 
@@ -170,7 +210,7 @@
           <article class="proj" data-proj="Personal Portfolio">
             <div class="proj-head"><span class="proj-idx">05</span><span class="proj-name">Personal Portfolio</span><span class="proj-year">2026</span></div>
             <div class="proj-org">Self-initiated &middot; Design &amp; Build</div>
-            <p class="proj-desc">This portfolio &mdash; a monospace, developer-style site designed and coded from scratch, with light/dark appearance, keyboard navigation, and hover tooltips.</p>
+            <p class="proj-desc">This portfolio &mdash; a monospace, developer-style site designed and coded from scratch, with light/dark appearance, keyboard navigation, a command palette, and hover tooltips.</p>
             <div class="proj-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><a href="https://github.com/Snoopydawgs/Snoopydawgs.github.io" target="_blank" rel="noopener">code <span class="arr">&#8599;</span></a></div>
           </article>
         </div>
@@ -249,6 +289,18 @@
     <span class="tip-body"></span>
   </div>
 
+  <!-- ===== COMMAND PALETTE ===== -->
+  <div class="palette" id="palette" hidden>
+    <div class="palette-box" role="dialog" aria-modal="true" aria-label="Quick menu">
+      <div class="palette-field">
+        <span class="palette-prompt">&gt;</span>
+        <input class="palette-input" id="paletteInput" type="text" autocomplete="off" spellcheck="false" placeholder="Jump to a section or action…" aria-label="Search" />
+        <kbd class="palette-esc">esc</kbd>
+      </div>
+      <ul class="palette-list" id="paletteList" role="listbox"></ul>
+    </div>
+  </div>
+
   <script>
     // ---- section switching ----
     const titles = {
@@ -267,13 +319,18 @@
       });
       if (titles[id]) document.title = titles[id];
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      tick();
     }
     document.querySelectorAll('[data-go]').forEach(el => {
       el.addEventListener('click', (e) => { e.preventDefault(); show(el.dataset.go); });
     });
 
-    // ---- keyboard shortcuts: 1–5 ----
+    // ---- keyboard shortcuts ----
     document.addEventListener('keydown', (e) => {
+      // ⌘K / Ctrl+K -> palette
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); togglePalette(true); return; }
+      // ⌘E / Ctrl+E -> copy email
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'e') { e.preventDefault(); copyEmail(); return; }
       const tag = e.target && e.target.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA') return;
       const map = { '1': 'about', '2': 'projects', '3': 'experience', '4': 'skills', '5': 'contact' };
@@ -289,24 +346,65 @@
     function applyMode(m) {
       mode = m;
       root.setAttribute('data-theme', resolve(m));
-      document.querySelectorAll('.theme-btn').forEach(b =>
+      document.querySelectorAll('.theme-btn[data-theme-set]').forEach(b =>
         b.classList.toggle('on', b.dataset.themeSet === m));
       try { localStorage.setItem('themeMode', m); } catch (e) {}
     }
-    document.querySelectorAll('.theme-btn').forEach(b =>
-      b.addEventListener('click', () => applyMode(b.dataset.themeSet)));
+    document.querySelectorAll('.theme-btn[data-theme-set]').forEach(b =>
+      b.addEventListener('click', () => { applyMode(b.dataset.themeSet); blip(); }));
     mq.addEventListener('change', () => { if (mode === 'system') root.setAttribute('data-theme', resolve('system')); });
     applyMode(mode);
 
+    // ---- sound (subtle UI tick), muted by default ----
+    let soundOn = false;
+    try { soundOn = localStorage.getItem('soundOn') === '1'; } catch (e) {}
+    let AC = null;
+    function reflectSound() {
+      const mb = document.getElementById('muteBtn');
+      mb.querySelector('.ic-muted').hidden = soundOn;
+      mb.querySelector('.ic-sound').hidden = !soundOn;
+      mb.classList.toggle('on', soundOn);
+    }
+    function blip() {
+      if (!soundOn) return;
+      try {
+        AC = AC || new (window.AudioContext || window.webkitAudioContext)();
+        const o = AC.createOscillator(), g = AC.createGain();
+        o.type = 'sine'; o.frequency.value = 520;
+        g.gain.setValueAtTime(0.045, AC.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.0001, AC.currentTime + 0.08);
+        o.connect(g); g.connect(AC.destination); o.start(); o.stop(AC.currentTime + 0.09);
+      } catch (e) {}
+    }
+    document.getElementById('muteBtn').addEventListener('click', () => {
+      soundOn = !soundOn;
+      try { localStorage.setItem('soundOn', soundOn ? '1' : '0'); } catch (e) {}
+      reflectSound(); blip();
+    });
+    reflectSound();
+    document.querySelectorAll('.nav, .slink, .link-more').forEach(el => el.addEventListener('click', blip));
+
     // ---- copy email ----
-    const cb = document.getElementById('copyEmail');
-    cb.addEventListener('click', async () => {
+    function flashBtn(btn, msg) {
+      if (!btn) return;
+      const old = btn.dataset.label || btn.textContent;
+      btn.dataset.label = old; btn.textContent = msg; btn.classList.add('done');
+      setTimeout(() => { btn.textContent = btn.dataset.label; btn.classList.remove('done'); }, 1500);
+    }
+    async function copyEmail() {
       try {
         await navigator.clipboard.writeText('jenvermikeuddon@gmail.com');
-        const old = cb.textContent; cb.textContent = 'copied ✓'; cb.classList.add('done');
-        setTimeout(() => { cb.textContent = old; cb.classList.remove('done'); }, 1500);
+        flashBtn(document.getElementById('copyEmail'), 'copied ✓');
+        const k = document.getElementById('copyEmailK');
+        if (k) { k.classList.add('done'); setTimeout(() => k.classList.remove('done'), 1200); }
+        blip();
       } catch (e) { window.location.href = 'mailto:jenvermikeuddon@gmail.com'; }
-    });
+    }
+    document.getElementById('copyEmail').addEventListener('click', copyEmail);
+    document.getElementById('copyEmailK').addEventListener('click', copyEmail);
+
+    // ---- presence (this viewer) ----
+    function tick() { /* reserved for future live presence */ }
 
     // ---- clickable project cards -> GitHub ----
     (function () {
@@ -346,6 +444,68 @@
         });
         n.addEventListener('mouseleave', () => tip.classList.remove('show'));
       });
+    })();
+
+    // ---- command palette ----
+    (function () {
+      const pal = document.getElementById('palette');
+      const input = document.getElementById('paletteInput');
+      const list = document.getElementById('paletteList');
+      const items = [
+        { label: 'About', hint: 'section', act: () => show('about') },
+        { label: 'Projects', hint: 'section', act: () => show('projects') },
+        { label: 'Experience', hint: 'section', act: () => show('experience') },
+        { label: 'Skills', hint: 'section', act: () => show('skills') },
+        { label: 'Contact', hint: 'section', act: () => show('contact') },
+        { label: 'Copy email', hint: 'action', act: () => copyEmail() },
+        { label: 'Download résumé', hint: 'file', act: () => { window.location.href = 'resume.pdf'; } },
+        { label: 'Open GitHub', hint: 'link', act: () => window.open('https://github.com/Snoopydawgs', '_blank', 'noopener') },
+        { label: 'Open LinkedIn', hint: 'link', act: () => window.open('https://www.linkedin.com/in/jenver-uddon-b26123420', '_blank', 'noopener') },
+        { label: 'Open Facebook', hint: 'link', act: () => window.open('https://www.facebook.com/khassellll', '_blank', 'noopener') }
+      ];
+      let active = 0, filtered = items.slice();
+
+      function render() {
+        list.innerHTML = '';
+        filtered.forEach((it, i) => {
+          const li = document.createElement('li');
+          li.className = 'pal-item' + (i === active ? ' active' : '');
+          li.setAttribute('role', 'option');
+          li.innerHTML = '<span>' + it.label + '</span><span class="pal-hint">' + it.hint + '</span>';
+          li.addEventListener('mouseenter', () => { active = i; paint(); });
+          li.addEventListener('click', () => choose(i));
+          list.appendChild(li);
+        });
+      }
+      function paint() {
+        [...list.children].forEach((li, i) => li.classList.toggle('active', i === active));
+      }
+      function filter() {
+        const q = input.value.trim().toLowerCase();
+        filtered = items.filter(it => it.label.toLowerCase().includes(q));
+        active = 0; render();
+      }
+      function choose(i) {
+        const it = filtered[i]; if (!it) return;
+        togglePalette(false); blip(); it.act();
+      }
+      window.togglePalette = function (open) {
+        if (open) {
+          pal.hidden = false; input.value = ''; filter();
+          requestAnimationFrame(() => input.focus());
+        } else {
+          pal.hidden = true;
+        }
+      };
+      document.getElementById('openPalette').addEventListener('click', () => togglePalette(true));
+      input.addEventListener('input', filter);
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown') { e.preventDefault(); active = Math.min(active + 1, filtered.length - 1); paint(); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); active = Math.max(active - 1, 0); paint(); }
+        else if (e.key === 'Enter') { e.preventDefault(); choose(active); }
+        else if (e.key === 'Escape') { togglePalette(false); }
+      });
+      pal.addEventListener('click', (e) => { if (e.target === pal) togglePalette(false); });
     })();
   </script>
 </body>
