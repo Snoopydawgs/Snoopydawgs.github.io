@@ -149,8 +149,6 @@
     background-color: #fff;
   }
   .portrait-img { @apply block w-full h-full; object-fit: cover; }
-  /* interactive dithered portrait (desktop); sits over the static img fallback */
-  .portrait-canvas { @apply absolute inset-0 block w-full h-full; z-index: 1; }
   .hero-name {
     @apply font-bold text-[40px] tracking-[-0.04em] mb-[22px];
     line-height: 1.05;
