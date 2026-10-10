@@ -150,21 +150,17 @@
   }
   .portrait-img { @apply block w-full h-full; object-fit: cover; }
 
-  /* the subject's own eyes track the cursor: the iris is blanked in the
-     photo and a dark pupil (no white circle) moves within the eye socket */
+  /* the subject's own eyes track the cursor: each .eye is a full copy of the
+     portrait clipped to one eye, nudged toward the pointer — no overlay circle */
   .eye {
-    @apply absolute grid place-items-center;
-    width: 5.6%; aspect-ratio: 1; z-index: 2;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
+    @apply absolute;
+    inset: 0; z-index: 2; pointer-events: none;
+    background: url('/portrait.png?v=4') center/cover no-repeat;
+    transition: background-position .12s ease-out;
+    will-change: background-position;
   }
-  .eye-l { left: 41.5%; top: 33%; }
-  .eye-r { left: 59%; top: 33%; }
-  .pupil {
-    width: 62%; aspect-ratio: 1; border-radius: 50%;
-    background: #141414;
-    transition: transform .08s linear;
-  }
+  .eye-l { clip-path: circle(3.8% at 41.5% 33%); }
+  .eye-r { clip-path: circle(3.8% at 59% 33%); }
   .hero-name {
     @apply font-bold text-[40px] tracking-[-0.04em] mb-[22px];
     line-height: 1.05;
