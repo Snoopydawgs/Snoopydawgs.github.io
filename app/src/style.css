@@ -144,21 +144,24 @@
   }
   .portrait { @apply w-full; }
   .halftone {
-    @apply relative border border-border rounded-[4px] grid place-items-center overflow-hidden;
+    @apply relative border border-border rounded-[4px] overflow-hidden;
     aspect-ratio: 1 / 1.08;
-    background-color: var(--panel);
-    background-image: radial-gradient(var(--dot) 28%, transparent 29%);
-    background-size: 6px 6px;
+    background-color: #fff;
   }
-  .halftone::after {
-    content: "";
-    position: absolute; inset: 0;
-    background: radial-gradient(circle at 50% 42%, transparent 35%, var(--bg) 100%);
-    pointer-events: none;
+  .portrait-img { @apply block w-full h-full; object-fit: cover; }
+
+  /* cursor-following googly eyes (overlay on the portrait) */
+  .eye {
+    @apply absolute grid place-items-center overflow-hidden;
+    width: 11%; aspect-ratio: 1; z-index: 2;
+    background: #fff; border: 1.5px solid #1a1a1a; border-radius: 50%;
+    transform: translate(-50%, -50%);
   }
-  .halftone span {
-    @apply font-bold text-text opacity-90 text-[68px] tracking-[-0.04em];
-    z-index: 1;
+  .eye-l { left: 39%; top: 37%; }
+  .eye-r { left: 62%; top: 37%; }
+  .pupil {
+    width: 44%; aspect-ratio: 1; border-radius: 50%; background: #111;
+    transition: transform .06s linear;
   }
   .hero-name {
     @apply font-bold text-[40px] tracking-[-0.04em] mb-[22px];

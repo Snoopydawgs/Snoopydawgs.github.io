@@ -268,6 +268,23 @@ if (!window.matchMedia('(hover: none)').matches) {
   }
 }
 
+/* ---------- cursor-following eyes (portrait easter egg) ---------- */
+const eyes = $$<HTMLElement>('.eye');
+if (eyes.length && !window.matchMedia('(hover: none)').matches) {
+  window.addEventListener('mousemove', (e: MouseEvent) => {
+    eyes.forEach((eye) => {
+      const pupil = eye.querySelector<HTMLElement>('.pupil');
+      if (!pupil) return;
+      const r = eye.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const angle = Math.atan2(e.clientY - cy, e.clientX - cx);
+      const reach = r.width * 0.2;
+      pupil.style.transform = `translate(${Math.cos(angle) * reach}px, ${Math.sin(angle) * reach}px)`;
+    });
+  });
+}
+
 /* ---------- command palette ---------- */
 interface PaletteItem {
   label: string;
