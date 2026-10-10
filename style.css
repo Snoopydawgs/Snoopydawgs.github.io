@@ -482,8 +482,14 @@ kbd {
   text-transform: uppercase; letter-spacing: .08em;
 }
 
-/* ---------- responsive ---------- */
-@media (max-width: 860px) {
+/* keep the left sidebar on laptops / narrower windows; just make it a touch tighter */
+@media (max-width: 1040px) {
+  :root { --sidebar-w: 236px; }
+  .main { padding: 52px 40px 90px; }
+}
+
+/* ---------- responsive (stack only on small screens / phones) ---------- */
+@media (max-width: 680px) {
   .layout { flex-direction: column; }
   .sidebar {
     width: 100%; flex: none; height: auto; position: sticky; top: 0; z-index: 20;
