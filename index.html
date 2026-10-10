@@ -66,6 +66,10 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 4-8 4-8-4 8-4z"/><path d="M4 12l8 4 8-4M4 17l8 4 8-4"/></svg>
           <span>Skills</span>
         </button>
+        <button class="nav" data-go="recommendations" data-tip-title="Recommendations" data-tip="What teammates, clients, and mentors say about working with me.">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>Recommendations</span>
+        </button>
         <button class="nav" data-go="contact" data-tip-title="Contact" data-tip="Have a project in mind? Let's talk.">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg>
           <span>Contact</span>
@@ -260,12 +264,44 @@
         </div>
       </section>
 
+      <!-- RECOMMENDATIONS -->
+      <section class="pane" id="pane-recommendations" hidden>
+        <header class="pane-head">
+          <h2 class="pane-title">Recommendations</h2>
+          <p class="pane-sub">What teammates, clients, and mentors say about working with me.</p>
+        </header>
+        <div class="rec-list">
+          <article class="rec rec-open">
+            <p class="rec-quote">References available on request &mdash; from my capstone team at Dasmari&ntilde;as City Health Office 2, my web-system clients, and advisers at KLD. I'm happy to connect you directly.</p>
+            <div class="rec-by">
+              <span class="rec-ava">REF</span>
+              <span class="rec-meta"><b>Ask me for references</b><i>LinkedIn recommendations coming soon</i></span>
+            </div>
+          </article>
+        </div>
+        <p class="contact-note">Have we worked together? A short LinkedIn recommendation would mean a lot &mdash; <a href="https://www.linkedin.com/in/jenver-uddon-b26123420" target="_blank" rel="noopener">leave one here &#8599;</a></p>
+      </section>
+
       <!-- CONTACT -->
       <section class="pane" id="pane-contact" hidden>
         <header class="pane-head">
           <h2 class="pane-title">Contact</h2>
           <p class="pane-sub">Open for commissions &mdash; have a project in mind?</p>
         </header>
+
+        <form class="cform" id="contactForm" novalidate>
+          <div class="cform-grid">
+            <label class="cfield"><span>Name</span><input type="text" id="cfName" name="name" autocomplete="name" placeholder="Your name" required /></label>
+            <label class="cfield"><span>Email</span><input type="email" id="cfEmail" name="email" autocomplete="email" placeholder="you@email.com" required /></label>
+          </div>
+          <label class="cfield"><span>Message</span><textarea id="cfMsg" name="message" rows="4" placeholder="Tell me about your project…" required></textarea></label>
+          <div class="cform-foot">
+            <button type="submit" class="btn primary">Send message <span class="arr">&#8594;</span></button>
+            <span class="cform-note" id="cformNote" role="status"></span>
+          </div>
+        </form>
+
+        <p class="cform-or">or reach me directly</p>
         <a class="contact-mail" id="email" href="mailto:jenvermikeuddon@gmail.com">jenvermikeuddon@gmail.com</a>
         <div class="contact-row">
           <button class="btn" id="copyEmail" type="button">copy email</button>
@@ -308,6 +344,7 @@
       projects: 'Projects — Jenver Mike Uddon',
       experience: 'Experience — Jenver Mike Uddon',
       skills: 'Skills — Jenver Mike Uddon',
+      recommendations: 'Recommendations — Jenver Mike Uddon',
       contact: 'Contact — Jenver Mike Uddon'
     };
     function show(id) {
@@ -333,7 +370,7 @@
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'e') { e.preventDefault(); copyEmail(); return; }
       const tag = e.target && e.target.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA') return;
-      const map = { '1': 'about', '2': 'projects', '3': 'experience', '4': 'skills', '5': 'contact' };
+      const map = { '1': 'about', '2': 'projects', '3': 'experience', '4': 'skills', '5': 'recommendations', '6': 'contact' };
       if (map[e.key]) show(map[e.key]);
     });
 
@@ -403,6 +440,25 @@
     document.getElementById('copyEmail').addEventListener('click', copyEmail);
     document.getElementById('copyEmailK').addEventListener('click', copyEmail);
 
+    // ---- contact form (opens a pre-filled email; no backend needed) ----
+    (function () {
+      const form = document.getElementById('contactForm');
+      if (!form) return;
+      const note = document.getElementById('cformNote');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('cfName').value.trim();
+        const email = document.getElementById('cfEmail').value.trim();
+        const msg = document.getElementById('cfMsg').value.trim();
+        if (!name || !email || !msg) { note.textContent = 'Please fill in all fields.'; return; }
+        const subject = encodeURIComponent('Project inquiry from ' + name);
+        const body = encodeURIComponent(msg + '\n\n— ' + name + ' (' + email + ')');
+        note.textContent = 'Opening your email app…';
+        window.location.href = 'mailto:jenvermikeuddon@gmail.com?subject=' + subject + '&body=' + body;
+        blip();
+      });
+    })();
+
     // ---- presence (this viewer) ----
     function tick() { /* reserved for future live presence */ }
 
@@ -456,6 +512,7 @@
         { label: 'Projects', hint: 'section', act: () => show('projects') },
         { label: 'Experience', hint: 'section', act: () => show('experience') },
         { label: 'Skills', hint: 'section', act: () => show('skills') },
+        { label: 'Recommendations', hint: 'section', act: () => show('recommendations') },
         { label: 'Contact', hint: 'section', act: () => show('contact') },
         { label: 'Copy email', hint: 'action', act: () => copyEmail() },
         { label: 'Download résumé', hint: 'file', act: () => { window.location.href = 'resume.pdf'; } },
