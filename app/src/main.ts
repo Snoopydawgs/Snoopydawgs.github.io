@@ -268,6 +268,37 @@ if (!window.matchMedia('(hover: none)').matches) {
   }
 }
 
+/* ---------- gaze-following portrait ----------
+   Swaps between pose photos (center / up / down / left / right) so the
+   face appears to look toward the pointer, like bryllim.com's portrait. */
+(function initGaze(): void {
+  const stack = document.getElementById('faceStack');
+  if (!stack) return;
+  if (window.matchMedia('(hover: none)').matches) return; // touch: center only
+  const dirs = new Map<string, HTMLElement>();
+  stack.querySelectorAll<HTMLElement>('.face-dir').forEach((el) => {
+    if (el.dataset.dir) dirs.set(el.dataset.dir, el);
+  });
+  let current = 'center';
+
+  function setDir(dir: string): void {
+    if (dir === current) return;
+    current = dir;
+    dirs.forEach((el, key) => el.classList.toggle('is-on', key === dir));
+  }
+
+  window.addEventListener('mousemove', (e: MouseEvent) => {
+    const nx = (e.clientX - window.innerWidth / 2) / (window.innerWidth / 2);
+    const ny = (e.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
+    if (Math.hypot(nx, ny) < 0.22) { setDir('center'); return; }
+    if (Math.abs(nx) > Math.abs(ny)) setDir(nx > 0 ? 'right' : 'left');
+    else setDir(ny > 0 ? 'down' : 'up');
+  });
+  window.addEventListener('mouseout', (e: MouseEvent) => {
+    if (!e.relatedTarget) setDir('center');
+  });
+})();
+
 /* ---------- command palette ---------- */
 interface PaletteItem {
   label: string;

@@ -148,7 +148,10 @@
     aspect-ratio: 1 / 1.08;
     background-color: #fff;
   }
-  .portrait-img { @apply block w-full h-full; object-fit: cover; }
+  /* stacked face poses: center is the base, a direction fades in on top */
+  .face { @apply absolute inset-0 block w-full h-full; object-fit: cover; }
+  .face-dir { opacity: 0; transition: opacity .13s ease; }
+  .face-dir.is-on { opacity: 1; }
   .hero-name {
     @apply font-bold text-[40px] tracking-[-0.04em] mb-[22px];
     line-height: 1.05;
